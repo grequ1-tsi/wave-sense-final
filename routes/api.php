@@ -40,5 +40,5 @@ Route::middleware('auth:sanctum')->group(function(){
      return Log::info('Webhook received');
  });
  Route::post('/ubiWebhook', function () {
-     return Log::info('Ubidots received');
+     return Log::info('Detectado movimento do item' . Request::input('item_id'));
  });
