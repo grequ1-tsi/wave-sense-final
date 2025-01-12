@@ -54,7 +54,7 @@ class MovimentoController extends Controller
     {
         $statusHttp = 201;
         try{
-            return Log::info("Chegou Aqui");
+            //return Log::info("Chegou Aqui");
             $json = $request->json()->all();
             if (!is_array($json)) {
                 return response()->json(['error' => 'Formato de JSON inválido'], 400);
