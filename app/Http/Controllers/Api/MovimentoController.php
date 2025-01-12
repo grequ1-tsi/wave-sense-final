@@ -48,7 +48,7 @@ class MovimentoController extends Controller
             $time = $CarbDate->toTimeString();
             $status = $this->checkItemMovement($item);
             //return Log::info(print_r($time, true));
-$Movimento = Movimento::create([
+            $Movimento = Movimento::create([
                 'local' => $local,
                 'item' => $item,
                 'date' => $date,

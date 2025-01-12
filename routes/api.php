@@ -42,4 +42,4 @@ Route::middleware('auth:sanctum')->group(function(){
  Route::post('/testWebhook', function () {
      return Log::info('Webhook received');
  });
- Route::post('/ubiWebhook', [MovimentoController::class, 'show']);
+ Route::post('/ubiWebhook', [MovimentoController::class, 'store']);
