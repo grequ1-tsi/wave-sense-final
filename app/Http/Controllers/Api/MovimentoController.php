@@ -44,7 +44,7 @@ class MovimentoController extends Controller
         $item = $json['item'];
         $datetime = $json['datetime'];
         $CarbDate = Carbon::parse($datetime);
-        $date = $CarbDate->toDateString();
+        $date = $CarbDate->toFormattedDateString();
         $time = $CarbDate->toTimeString();
         return Log::info(print_r($date, true));
         //return response()->json($Movimento);
