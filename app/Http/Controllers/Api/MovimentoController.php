@@ -7,6 +7,7 @@ use App\Models\Movimento;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class MovimentoController extends Controller
 {
@@ -42,7 +43,10 @@ class MovimentoController extends Controller
         $name = $json['name'];
         $item = $json['item'];
         $datetime = $json['datetime'];
-        return Log::info(print_r($datetime, true));
+        $CarbDate = Carbon::parse($datetime);
+        $date = $CarbDate->toDateString();
+        $time = $CarbDate->toTimeString();
+        return Log::info(print_r($date, true));
         //return response()->json($Movimento);
     }
 
