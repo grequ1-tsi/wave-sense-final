@@ -71,11 +71,11 @@ class MovimentoController extends Controller
             $Movimento = Movimento::create([
                 'num_patrimonial' => $item,
                 'status' => $status,
-                'sala' => $salas_id,
+                'salas_id' => $salas_id,
                 'data' => $date,
                 'horario' => $time,
             ]);
-            event(new ItemMovimentado());
+            //event(new ItemMovimentado());
             return response()->json(['Message' => 'Movimento registrado com sucesso', 'Movimento' => $Movimento], $statusHttp);
         }catch(Exception $e)
         {

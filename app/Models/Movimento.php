@@ -15,7 +15,7 @@ class Movimento extends Model
     protected $fillable = [
         'num_patrimonial',
         'status',
-        'sala',
+        'salas_id',
         'data',
         'horario',
     ];
