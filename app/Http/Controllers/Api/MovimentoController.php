@@ -42,7 +42,7 @@ class MovimentoController extends Controller
         $name = $json['name'];
         $item = $json['item'];
         $datetime = $json['datetime'];
-        return Log::info(print_r($item, true));
+        return Log::info(print_r($datetime, true));
         //return response()->json($Movimento);
     }
 
