@@ -24,7 +24,7 @@ class MovimentoController extends Controller
             return 'Out';
         }if($movimentos[0]->status == 'entrada'){
             return 'In';
-        }else{
+        }if($movimentos->isEmpty()){
             return 'Out';
         }
 
@@ -49,11 +49,11 @@ class MovimentoController extends Controller
             $status = $this->checkItemMovement($item);
             //return Log::info(print_r($time, true));
             $Movimento = Movimento::create([
-                'local' => $local,
-                'item' => $item,
+                'num_patrimonial' => $item,
+                'status' => $status,
+                'sala' => $local,
                 'date' => $date,
                 'time' => $time,
-                'status' => $status
             ]);
             return response()->json(['Message' => 'Movimento registrado com sucesso', 'Movimento' => $Movimento], $statusHttp);
         }catch(Exception $e)
