@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Events\ItemMovimentado;
+//use App\Events\ItemMovimentado;
 use App\Http\Controllers\Controller;
 use App\Models\Movimento;
 use App\Models\Sala;
@@ -54,12 +54,11 @@ class MovimentoController extends Controller
     {
         $statusHttp = 201;
         try{
-            //return Log::info("Chegou Aqui");
+            return Log::info('request', $request->all());
             $json = $request->json()->all();
             if (!is_array($json)) {
                 return response()->json(['error' => 'Formato de JSON inválido'], 400);
             }
-            return Log::info(print_r($json));
             $local = '147B';
             $item = $json['item'];
             $datetime = $json['datetime'];
