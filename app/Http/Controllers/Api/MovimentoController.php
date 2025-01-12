@@ -16,6 +16,19 @@ class MovimentoController extends Controller
         return response()->json(Movimento::all());
     }
 
+    private function checkItemMovement($item)
+    {
+        $movimentos = Movimento::where('item', $item)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+
+        if ($movimentos[0]->status == 'saida') {
+            return 'Out';
+        }if($movimentos[0]->status == 'entrada'){
+            return 'In';
+        }else{
+            return 'Out';
+        }
+
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -23,31 +36,37 @@ class MovimentoController extends Controller
     {
         $statusHttp = 201;
         try{
-            $Movimento = Movimento::create($request->all());
+            $json = $request->json()->all();;
+            if (!is_array($json)) {
+                return response()->json(['error' => 'Formato de JSON inválido'], 400);
+            }
+            $local = '147B';
+            $item = $json['item'];
+            $datetime = $json['datetime'];
+            $CarbDate = Carbon::parse($datetime);
+            $date = $CarbDate->toFormattedDateString();
+            $time = $CarbDate->toTimeString();
+            $status = $this->checkItemMovement($item);
+            //return Log::info(print_r($time, true));
+$Movimento = Movimento::create([
+                'local' => $local,
+                'item' => $item,
+                'date' => $date,
+                'time' => $time,
+                'status' => $status
+            ]);
             return response()->json(['Message' => 'Movimento registrado com sucesso', 'Movimento' => $Movimento], $statusHttp);
         }catch(Exception $e)
         {
             return $this->errorHandler('Erro ao registrar o Movimento', $e,$statusHttp);
         }
     }
-
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show(Movimento $Movimento)
     {
-        $json = $request->json()->all();;
-        if (!is_array($json)) {
-            return response()->json(['error' => 'Formato de JSON inválido'], 400);
-        }
-        $name = $json['name'];
-        $item = $json['item'];
-        $datetime = $json['datetime'];
-        $CarbDate = Carbon::parse($datetime);
-        $date = $CarbDate->toFormattedDateString();
-        $time = $CarbDate->toTimeString();
-        return Log::info(print_r($time, true));
-        //return response()->json($Movimento);
+        return response()->json($Movimento);
     }
 
     /**
