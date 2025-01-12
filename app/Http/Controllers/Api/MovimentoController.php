@@ -46,7 +46,7 @@ class MovimentoController extends Controller
         $CarbDate = Carbon::parse($datetime);
         $date = $CarbDate->toFormattedDateString();
         $time = $CarbDate->toTimeString();
-        return Log::info(print_r($date, true));
+        return Log::info(print_r($time, true));
         //return response()->json($Movimento);
     }
 
