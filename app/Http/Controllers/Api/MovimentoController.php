@@ -52,6 +52,7 @@ class MovimentoController extends Controller
      */
     public function store(Request $request)
     {
+        return Log::info(print_r("Chegou aqui"));
         $statusHttp = 201;
         try{
             $json = $request->json()->all();
