@@ -32,8 +32,6 @@ class MovimentoController extends Controller
         }else
         if($movimentos->first()->status == 'IN'){
             return 'IN';
-        }else{
-            return 'OUT';
         }
 
     }
@@ -56,7 +54,7 @@ class MovimentoController extends Controller
         try{
             //return Log::info('request', $request->all());
             $json = $request->json()->all();
-            return Log::info('json', $json);
+  //          return Log::info('json', $json);
             if (!is_array($json)) {
                 return response()->json(['error' => 'Formato de JSON inválido'], 400);
             }
@@ -67,6 +65,7 @@ class MovimentoController extends Controller
             $date = $CarbDate->toDateString();
             $time = $CarbDate->toTimeString();
             $status = $this->checkItemMovement($item);
+            return Log::info($status);
             $salas_id = $this->getSala($local);
             //return Log::info(print_r($salas_id));
             $Movimento = Movimento::create([
