@@ -59,7 +59,7 @@ class MovimentoController extends Controller
             if (!is_array($json)) {
                 return response()->json(['error' => 'Formato de JSON inválido'], 400);
             }
-            //return Log::info(print_r($json));
+            return Log::info(print_r($json));
             $local = '147B';
             $item = $json['item'];
             $datetime = $json['datetime'];
