@@ -25,7 +25,7 @@ class MovimentoController extends Controller
         $movimentos = Movimento::where('num_patrimonial', $item)->orderBy('data', 'desc')->orderBy('horario', 'desc')->get();
 
         if($movimentos->isEmpty()){
-            return 'Out';
+            return 'OUT';
         }
         if ($movimentos->first()->status == 'OUT') {
             return 'OUT';
