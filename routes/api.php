@@ -42,7 +42,7 @@ Route::middleware('auth:sanctum')->group(function(){
      return Log::info('Webhook received');
  });
  Route::post('/ubiWebhook', function (Request $request) {
-            $json = $request->json()->all();
+            $json = $request->all();
             if (!is_array($json)) {
                 return response()->json(['error' => 'Formato de JSON inválido'], 400);
             }
