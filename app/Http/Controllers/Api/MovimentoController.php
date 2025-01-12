@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Movimento;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class MovimentoController extends Controller
 {
@@ -32,9 +33,17 @@ class MovimentoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Movimento $Movimento)
+    public function show(Request $request)
     {
-        return response()->json($Movimento);
+        $json = $request->json()->all();;
+        if (!is_array($json)) {
+            return response()->json(['error' => 'Formato de JSON inválido'], 400);
+        }
+        $name = $json['name'];
+        $item = $json['item'];
+        $datetime = $json['datetime'];
+        return Log::info($item, $datetime);
+        //return response()->json($Movimento);
     }
 
     /**

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\ItemPatrimonialController;
 use App\Http\Controllers\Api\SalaController;
 use App\Http\Controllers\Api\SetorController;
+use App\Http\Controllers\Api\MovimentoController;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,14 +42,4 @@ Route::middleware('auth:sanctum')->group(function(){
  Route::post('/testWebhook', function () {
      return Log::info('Webhook received');
  });
- Route::post('/ubiWebhook', function (Request $request) {
-            $json = $request->all();
-            if (!is_array($json)) {
-                return response()->json(['error' => 'Formato de JSON inválido'], 400);
-            }
-            $name = $json['name'];
-            $item = $json['item'];
-            $datetime = $json['datetime'];
-
-     return Log::info($item, $datetime);
- });
+ Route::post('/ubiWebhook', [MovimentoController::class, 'show']);
