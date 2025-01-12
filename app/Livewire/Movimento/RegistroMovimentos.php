@@ -18,10 +18,20 @@ class RegistroMovimentos extends Component implements HasForms, HasTable
     use InteractsWithForms;
     use InteractsWithTable;
 
+    protected $listeners = [
+        'refreshTable' => '$refresh',
+    ];
+    
+    public function mount()
+    {
+        // Listen for the custom event
+        $this->listeners['echo:refreshTable,refreshTable'] = '$refresh';
+    }
+
     public function table(Table $table): Table
     {
         return $table
-            ->query(Movimento::query())
+            ->query(Movimento::query()->orderBy('data', 'desc'))
             ->columns([
                 Tables\Columns\TextColumn::make('num_patrimonial'),
                 Tables\Columns\TextColumn::make('status'),
@@ -31,7 +41,7 @@ class RegistroMovimentos extends Component implements HasForms, HasTable
                     ->date(),
                 Tables\Columns\TextColumn::make('horario'),
             ])
-            ->defaultSort('data', 'desc')
+            ->defaultSort('horario', 'desc',)
             ->filters([
                 //
             ])

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\ItemMovimentado;
 use App\Http\Controllers\Controller;
 use App\Models\Movimento;
+use App\Models\Sala;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+//use Filament\Forms\Components\Livewire;
+use Livewire\Livewire;
 
 class MovimentoController extends Controller
 {
@@ -18,15 +22,29 @@ class MovimentoController extends Controller
 
     private function checkItemMovement($item)
     {
-        $movimentos = Movimento::where('item', $item)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+        $movimentos = Movimento::where('num_patrimonial', $item)->orderBy('data', 'desc')->orderBy('horario', 'desc')->get();
 
-        if ($movimentos[0]->status == 'saida') {
-            return 'Out';
-        }if($movimentos[0]->status == 'entrada'){
-            return 'In';
-        }if($movimentos->isEmpty()){
+        if($movimentos->isEmpty()){
             return 'Out';
         }
+        if ($movimentos->first()->status == 'OUT') {
+            return 'OUT';
+        }else
+        if($movimentos->first()->status == 'IN'){
+            return 'IN';
+        }else{
+            return 'OUT';
+        }
+
+    }
+
+    private function getSala($local)
+    {
+        $sala = Sala::where('numSala', $local)->first();
+        if ($sala) {
+            return $sala->id;
+        }
+        return 'Não encontrado';
 
     }
     /**
@@ -40,21 +58,24 @@ class MovimentoController extends Controller
             if (!is_array($json)) {
                 return response()->json(['error' => 'Formato de JSON inválido'], 400);
             }
+            //return Log::info(print_r($json));
             $local = '147B';
             $item = $json['item'];
             $datetime = $json['datetime'];
             $CarbDate = Carbon::parse($datetime);
-            $date = $CarbDate->toFormattedDateString();
+            $date = $CarbDate->toDateString();
             $time = $CarbDate->toTimeString();
             $status = $this->checkItemMovement($item);
-            //return Log::info(print_r($time, true));
+            $salas_id = $this->getSala($local);
+            //return Log::info(print_r($salas_id));
             $Movimento = Movimento::create([
                 'num_patrimonial' => $item,
                 'status' => $status,
-                'sala' => $local,
-                'date' => $date,
-                'time' => $time,
+                'sala' => $salas_id,
+                'data' => $date,
+                'horario' => $time,
             ]);
+            event(new ItemMovimentado());
             return response()->json(['Message' => 'Movimento registrado com sucesso', 'Movimento' => $Movimento], $statusHttp);
         }catch(Exception $e)
         {
