@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('setores', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->String('nome');
+            $table->String('sigla');
+            $table->foreignId('users_id')
+                ->constrained()
+                ->onDelete('cascade');
         });
     }
 

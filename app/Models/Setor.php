@@ -15,7 +15,7 @@ class Setor extends Model
     protected $fillable = [
         'nome',
         'sigla',
-        'responsavel',
+        'users_id',
     ];
 
     public function itemPatrimonial()

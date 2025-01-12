@@ -18,12 +18,12 @@ class ItemPatrimonialFactory extends Factory
      */    public function definition(): array
     {
         return [
-            'num_patrimonial' => fake()->unique()->number(6),
+            'num_patrimonial' => fake()->unique()->numberBetween(10000000, 99999999),
             'marca' => 'Lenovo',
             'descricao' => fake()->text(100),
-            'serial' => fake()->unique()->number(10),
-            'setor' => Setor::factory(),
-            'sala'=> Sala::factory(),
+            'serial' => fake()->unique()->numberBetween(1000000000, 9999999999),
+            'setores_id' => Setor::factory(),
+            'salas_id'=> Sala::factory(),
         ];
     }
 }

@@ -20,7 +20,7 @@ class SetorFactory extends Factory
         return [
             'nome' => fake()->unique()->text(54),
             'sigla'=> fake()->unique()->text(5),
-            'responsavel' => User::factory(),
+            'users_id' => User::factory(),
         ];
     }
 }

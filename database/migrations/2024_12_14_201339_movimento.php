@@ -15,7 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('num_patrimonial');
             $table->string('status');
-            $table->string('sala');
+            $table->foreignId('salas_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->date('data');
+            $table->time('horario');
             $table->timestamps();
         });
     }

@@ -16,7 +16,8 @@ class Movimento extends Model
         'num_patrimonial',
         'status',
         'sala',
-        'data_hora',
+        'data',
+        'horario',
     ];
 
     public function item()

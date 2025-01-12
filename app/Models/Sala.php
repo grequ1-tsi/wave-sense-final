@@ -10,7 +10,7 @@ class Sala extends Model
 {
     use HasFactory;
 
-    protected $table = 'sala';
+    protected $table = 'salas';
 
     protected $fillable = [
         'numSala',

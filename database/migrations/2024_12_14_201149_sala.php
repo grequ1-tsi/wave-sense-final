@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->String('numSala');
+            $table->string('dispositivo');
             $table->foreignId('setores_id')
             ->constrained()
             ->onDelete('cascade');

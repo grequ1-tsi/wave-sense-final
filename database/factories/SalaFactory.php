@@ -19,7 +19,7 @@ class SalaFactory extends Factory
     {
         return [
             'numSala'=> fake()->unique()->numberBetween(212, 432),
-            'setor_id' => Setor::factory(),
+            'setores_id' => Setor::factory(),
             'dispositivo' =>fake()->unique()->text(10),
         ];
     }

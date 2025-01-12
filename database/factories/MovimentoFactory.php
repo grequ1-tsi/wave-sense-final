@@ -20,9 +20,10 @@ class MovimentoFactory extends Factory
     {
         return [
             'num_patrimonial' => ItemPatrimonial::factory(),
-            'sala' => Sala::factory(),
-            'status' => fake()->randomElement(['entrada', 'saida']),
-            'data_hora' => fake()->dateTime(),
+            'salas_id' => Sala::factory(),
+            'status' => fake()->randomElement(['IN', 'OUT']),
+            'data' => $this->faker->date(),
+            'horario' => $this->faker->time(),
         ];
     }
 }
