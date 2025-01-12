@@ -56,7 +56,7 @@ class MovimentoController extends Controller
         try{
             //return Log::info('request', $request->all());
             $json = $request->json()->all();
-            return Log::info(print_r($json));
+            return Log::info('json', $json);
             if (!is_array($json)) {
                 return response()->json(['error' => 'Formato de JSON inválido'], 400);
             }
