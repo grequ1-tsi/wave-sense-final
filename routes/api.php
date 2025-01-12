@@ -41,6 +41,14 @@ Route::middleware('auth:sanctum')->group(function(){
  Route::post('/testWebhook', function () {
      return Log::info('Webhook received');
  });
- Route::post('/ubiWebhook', function () {
-     return Log::info('Detectado movimento do item');
+ Route::post('/ubiWebhook', function (Request $request) {
+            $json = $request->json()->all();
+            if (!is_array($json)) {
+                return response()->json(['error' => 'Formato de JSON inválido'], 400);
+            }
+            $name = $json['name'];
+            $item = $json['item'];
+            $datetime = $json['datetime'];
+
+     return Log::info($item, $datetime);
  });
