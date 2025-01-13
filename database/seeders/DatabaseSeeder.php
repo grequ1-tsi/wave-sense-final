@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Movimento;
+use App\Models\Sala;
+use App\Models\Setor;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -25,6 +27,21 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Movimento::factory(10)->create();
+
+//        Setor::factory()->create(
+  //          [
+    //            'nome' => 'Curso Superior em Tecnologia em Sistemas para Internet',
+      //          'sigla' => 'CSTSI',
+        //        'responsavel' => 1
+          //  ]
+       // );
+        //Sala::factory()->create(
+          //  [
+            //    'numSalas' => '147B',
+              //  'dispositivo' => 'Krypto',
+                //'setores_id' => 31
+           // ]
+        //);
         
 
     }

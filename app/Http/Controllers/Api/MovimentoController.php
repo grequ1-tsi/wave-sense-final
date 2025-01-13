@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Movimento;
 use App\Models\Sala;
+use App\Models\Setor;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -42,7 +43,16 @@ class MovimentoController extends Controller
         if ($sala) {
             return $sala->id;
         }
-        return 'Não encontrado';
+        Setor::create([
+            'nome' => 'Curso Superior em Tecnologia de Sistemas Para Internet',
+            'sigla' => 'CSTSI',
+            'responsavel' => 1,
+        ]);
+        Sala::create([
+            'numSala' => $local,
+            'dispositivo' => 'Krypto',
+            'setores_id' => 31,
+        ]);
 
     }
     /**
