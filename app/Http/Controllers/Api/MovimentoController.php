@@ -48,7 +48,7 @@ class MovimentoController extends Controller
             'sigla' => 'CSTSI',
             'responsavel' => 1,
         ]);
-        return Log::info('chegou aqui');
+        return Log::info($setor);
         $salaNew = Sala::create([
             'numSala' => $local,
             'dispositivo' => 'Krypto',
