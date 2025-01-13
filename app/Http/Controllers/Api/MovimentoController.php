@@ -48,12 +48,14 @@ class MovimentoController extends Controller
             'sigla' => 'CSTSI',
             'users_id' => 1,
         ]);
-        return Log::info($setor);
+
         $salaNew = Sala::create([
             'numSala' => $local,
             'dispositivo' => 'Krypto',
             'setores_id' => 31,
         ]);
+        return Log::info($salaNew);
+        
         //$sala = Sala::where('numSala', $local)->first();
         //return $sala->id;
 
