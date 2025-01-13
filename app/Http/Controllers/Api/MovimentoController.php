@@ -51,7 +51,7 @@ class MovimentoController extends Controller
 
         $salaNew = Sala::create([
             'numSala' => $local,
-            'setor_id' => 31,
+            'setor_id' => $setor->id,
             'dispositivo' => 'Krypto',
         ]);
         return Log::info($salaNew);
