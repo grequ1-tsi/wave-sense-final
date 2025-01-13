@@ -14,7 +14,7 @@ class Sala extends Model
 
     protected $fillable = [
         'numSala',
-        'setor_id',
+        'setores_id',
         'dispositivo',
     ];
 
