@@ -53,6 +53,7 @@ class MovimentoController extends Controller
             'dispositivo' => 'Krypto',
             'setores_id' => 31,
         ]);
+        return Sala::where('numSala', $local)->first()->id;
 
     }
     /**
