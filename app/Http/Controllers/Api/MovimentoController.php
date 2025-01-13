@@ -43,17 +43,18 @@ class MovimentoController extends Controller
         if ($sala) {
             return $sala->id;
         }
-        Setor::create([
+        $setor = Setor::create([
             'nome' => 'Curso Superior em Tecnologia de Sistemas Para Internet',
             'sigla' => 'CSTSI',
             'responsavel' => 1,
         ]);
-        Sala::create([
+        $salaNew = Sala::create([
             'numSala' => $local,
             'dispositivo' => 'Krypto',
             'setores_id' => 31,
         ]);
-        return Sala::where('numSala', $local)->first()->id;
+        
+        return Log::info($salaNew);
 
     }
     /**
