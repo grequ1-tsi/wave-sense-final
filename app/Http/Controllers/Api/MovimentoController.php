@@ -54,10 +54,8 @@ class MovimentoController extends Controller
             'setores_id' => $setor->id,
             'dispositivo' => 'Krypto',
         ]);
-        return Log::info($salaNew);
         
-        //$sala = Sala::where('numSala', $local)->first();
-        //return $sala->id;
+        return $salaNew->id;
 
     }
     /**
