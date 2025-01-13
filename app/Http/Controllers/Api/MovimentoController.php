@@ -67,7 +67,7 @@ class MovimentoController extends Controller
             $status = $this->checkItemMovement($item);
             //return Log::info($status);
             $salas_id = $this->getSala($local);
-            return Log::info(print_r($salas_id));
+            return Log::info($salas_id);
             $Movimento = Movimento::create([
                 'num_patrimonial' => $item,
                 'status' => $status,
