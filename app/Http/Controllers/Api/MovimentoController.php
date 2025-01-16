@@ -40,10 +40,12 @@ class MovimentoController extends Controller
     {
         $movimentos = Movimento::where('num_patrimonial', $item)->orderBy('data', 'desc')->orderBy('horario', 'desc')->get();
 
+        if($movimentos->isEmpty()){
+            return '147B';
+        }
         if($time > $movimentos->first()->horario){
             return '141B';
         }
-        return '147B';
 
     }
 
