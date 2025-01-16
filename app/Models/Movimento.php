@@ -27,7 +27,7 @@ class Movimento extends Model
 
     public function sala()
     {
-        return $this->hasOne(Sala::class);
+        return $this->belongsTo(Sala::class, 'salas_id');
     }
 
 

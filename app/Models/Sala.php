@@ -30,7 +30,7 @@ class Sala extends Model
 
     public function movimento()
     {
-        return $this->belongsTo(Movimento::class);
+        return $this->hasOne(Movimento::class);
     }
 
 

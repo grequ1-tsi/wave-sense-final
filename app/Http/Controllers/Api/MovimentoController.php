@@ -28,11 +28,11 @@ class MovimentoController extends Controller
         if($movimentos->isEmpty()){
             return 'OUT';
         }
-        if ($movimentos->first()->status == 'OUT') {
-            return 'OUT';
+        if($movimentos->first()->status == 'OUT') {
+            return 'IN';
         }else
         if($movimentos->first()->status == 'IN'){
-            return 'IN';
+            return 'OUT';
         }
 
     }
@@ -43,19 +43,8 @@ class MovimentoController extends Controller
         if ($sala) {
             return $sala->id;
         }
-        $setor = Setor::create([
-            'nome' => 'Curso Superior em Tecnologia de Sistemas Para Internet',
-            'sigla' => 'CSTSI',
-            'users_id' => 1,
-        ]);
-
-        $salaNew = Sala::create([
-            'numSala' => $local,
-            'setores_id' => $setor->id,
-            'dispositivo' => 'Krypto',
-        ]);
         
-        return $salaNew->id;
+        return "ERRO! A Sala não existe!";
 
     }
     /**
@@ -92,7 +81,7 @@ class MovimentoController extends Controller
             return response()->json(['Message' => 'Movimento registrado com sucesso', 'Movimento' => $Movimento], $statusHttp);
         }catch(Exception $e)
         {
-            return $this->errorHandler('Erro ao registrar o Movimento', $e,$statusHttp);
+            return $this->errorHandler('Erro ao registrar o Movimento', $e, 404);
         }
     }
     /**

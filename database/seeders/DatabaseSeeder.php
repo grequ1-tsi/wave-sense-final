@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('L@stSon1938')
         ]);
 
-        Movimento::factory(10)->create();
+        Movimento::factory(5)->create();
 
 //        Setor::factory()->create(
   //          [
