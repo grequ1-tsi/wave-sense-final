@@ -28,20 +28,27 @@ class DatabaseSeeder extends Seeder
 
         Movimento::factory(5)->create();
 
-//        Setor::factory()->create(
-  //          [
-    //            'nome' => 'Curso Superior em Tecnologia em Sistemas para Internet',
-      //          'sigla' => 'CSTSI',
-        //        'responsavel' => 1
-          //  ]
-       // );
-        //Sala::factory()->create(
-          //  [
-            //    'numSalas' => '147B',
-              //  'dispositivo' => 'Krypto',
-                //'setores_id' => 31
-           // ]
-        //);
+        Setor::factory()->create(
+            [
+                'nome' => 'Curso Superior em Tecnologia em Sistemas para Internet',
+                'sigla' => 'CSTSI',
+                'users_id' => 1
+            ]
+        );
+        Sala::factory()->create(
+            [
+                'numSala' => '147B',
+                'dispositivo' => 'Krypto',
+                'setores_id' => 11
+            ]
+        );
+        Sala::factory()->create(
+          [
+              'numSala' => '141B',
+              'dispositivo' => 'Daxam',
+              'setores_id' => 11
+          ]
+      );
         
 
     }
