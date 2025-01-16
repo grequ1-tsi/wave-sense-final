@@ -36,8 +36,19 @@ class MovimentoController extends Controller
         }
 
     }
+    private function checkLastTime($item,$time)
+    {
+        $movimentos = Movimento::where('num_patrimonial', $item)->orderBy('data', 'desc')->orderBy('horario', 'desc')->get();
 
-    private function getSala($local)
+        if($time > $movimentos->first()->horario){
+            return '141B';
+        }
+        return '147B';
+
+    }
+
+
+    private function getSala($local, $lastTime)
     {
         $sala = Sala::where('numSala', $local)->first();
         if ($sala) {
@@ -62,13 +73,19 @@ class MovimentoController extends Controller
             }
             $local = '147B';
             $item = $json['item'];
+            if($item == 166475.1)
+            {
+                $local = '141B';
+            }
+            $item = 166475;
             $datetime = $json['datetime'];
             $CarbDate = Carbon::parse($datetime);
             $date = $CarbDate->toDateString();
             $time = $CarbDate->toTimeString();
             $status = $this->checkItemMovement($item);
+            $local = $this->checkLastTime($item, $time);
             //return Log::info($status);
-            $salas_id = $this->getSala($local);
+            $salas_id = $this->getSala($local, $time);
             //return Log::info($salas_id);
             $Movimento = Movimento::create([
                 'num_patrimonial' => $item,
