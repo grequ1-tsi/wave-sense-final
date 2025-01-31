@@ -36,21 +36,9 @@ class MovimentoController extends Controller
         }
 
     }
-    private function checkLastTime($item,$time)
-    {
-        $movimentos = Movimento::where('num_patrimonial', $item)->orderBy('data', 'desc')->orderBy('horario', 'desc')->get();
-
-        if($movimentos->isEmpty()){
-            return '147B';
-        }
-        if($time > $movimentos->first()->horario){
-            return '141B';
-        }
-
-    }
 
 
-    private function getSala($local, $lastTime)
+    private function getSala($local)
     {
         $sala = Sala::where('numSala', $local)->first();
         if ($sala) {
@@ -73,21 +61,16 @@ class MovimentoController extends Controller
             if (!is_array($json)) {
                 return response()->json(['error' => 'Formato de JSON inválido'], 400);
             }
-            $local = '147B';
+            $local = $json['local'];
             $item = $json['item'];
-            if($item == 166475.1)
-            {
-                $local = '141B';
-            }
-            $item = 166475;
             $datetime = $json['datetime'];
             $CarbDate = Carbon::parse($datetime);
             $date = $CarbDate->toDateString();
             $time = $CarbDate->toTimeString();
+            $salas_id = $this->getSala($local);
             $status = $this->checkItemMovement($item);
-            $local = $this->checkLastTime($item, $time);
             //return Log::info($status);
-            $salas_id = $this->getSala($local, $time);
+            $salas_id = $this->getSala($local);
             //return Log::info($salas_id);
             $Movimento = Movimento::create([
                 'num_patrimonial' => $item,
@@ -103,17 +86,11 @@ class MovimentoController extends Controller
             return $this->errorHandler('Erro ao registrar o Movimento', $e, 404);
         }
     }
-    /**
-     * Display the specified resource.
-     */
     public function show(Movimento $Movimento)
     {
         return response()->json($Movimento);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Movimento $Movimento)
     {
         $statusHttp = 200;
@@ -127,9 +104,6 @@ class MovimentoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Movimento $Movimento)
     {
         $statusHttp = 200;
